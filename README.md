@@ -14,4 +14,4 @@ And then install:
 brew install timer-for-python
 ```
 
-For other methods of installation and more information, go to the [project page]((https://github.com/jakob-bagterp/timer-for-python)).
+For other methods of installation and more information, go to the [project page](https://github.com/jakob-bagterp/timer-for-python).
