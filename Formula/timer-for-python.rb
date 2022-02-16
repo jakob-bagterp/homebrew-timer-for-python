@@ -3,11 +3,11 @@ class TimerForPython < Formula
 
   desc "Makes it easy to measure time and performance of Python programs"
   homepage "https://github.com/jakob-bagterp/timer-for-python"
-  url "https://github.com/jakob-bagterp/timer-for-python/releases/download/v0.3.4/timer-for-python-0.3.4.tar.gz"
-  sha256 "ab64da1a76157f56595fc972016fc260d5467e5f66e3dce5b4fb20fd002da322"
+  url "https://github.com/jakob-bagterp/timer-for-python/releases/download/v0.4.1/timer-for-python-0.4.1.tar.gz"
+  sha256 "2c04840185f3037d3580046c3c922638b17d296f062fda944e176c9a0b1b0306"
   license "MIT"
 
-  depends_on "python@3.9"
+  depends_on "python@3.10"
 
   def install
     virtualenv_install_with_resources
