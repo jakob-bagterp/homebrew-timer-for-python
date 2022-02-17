@@ -8,7 +8,7 @@ class TimerForPython < Formula
   license "MIT"
 
   depends_on "python@3.10"
-  depends_on "jakob-bagterp/homebrew-colorist-for-python"
+  depends_on "colorist-for-python"
 
   def install
     virtualenv_install_with_resources
