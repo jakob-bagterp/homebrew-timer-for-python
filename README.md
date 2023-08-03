@@ -7,7 +7,7 @@
 [![Downloads](https://static.pepy.tech/badge/timer-for-python)](https://pepy.tech/project/timer-for-python)
 
 # About
-This repository is a Homebrew tap of ⏳ [Timer for Python](https://github.com/jakob-bagterp/timer-for-python) ⌛.
+This repository is a Homebrew tap of ⏳ [Timer for Python](https://jakob-bagterp.github.io/timer-for-python/) ⌛.
 
 # How to Install
 If you already have installed the [Homebrew](https://brew.sh) package manager for Mac and Linux, execute this terminal command to tap Timer for Python:
