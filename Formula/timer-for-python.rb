@@ -3,8 +3,8 @@ class TimerForPython < Formula
 
   desc "Makes it easy to measure time and performance of Python programs"
   homepage "https://github.com/jakob-bagterp/timer-for-python"
-  url "https://github.com/jakob-bagterp/timer-for-python/releases/download/v0.7.3/timer-for-python-0.7.3.tar.gz"
-  sha256 "1411f4531ecb4e12197e019d10b5dfed653ea83e2cd13619852a05b915664fc3"
+  url "https://github.com/jakob-bagterp/timer-for-python/releases/download/v0.7.4/timer-for-python-0.7.4.tar.gz"
+  sha256 "a58011c7220d145583d1207877a89d1966e5237e064d843b59e6854d577100c3"
   license "MIT"
 
   depends_on "python@3.10"
