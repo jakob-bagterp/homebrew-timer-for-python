@@ -1,0 +1,49 @@
+name: Bump Homebrew formula
+
+on:
+  repository_dispatch:
+    types: [update-formula]
+  workflow_dispatch:
+    inputs:
+      formula_version:
+        description: "Version of the formula"
+        required: true
+        type: string
+      formula_name:
+        description: "Name of the formula"
+        required: true
+        type: string
+      formula_url:
+        description: "URL of the formula"
+        required: true
+        type: string
+
+env:
+  OWNER: ArjanCodes
+  REPO: homebrew-core
+
+jobs:
+  homebrew:
+    name: Bump Homebrew formula
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v4
+
+      - uses: mislav/bump-homebrew-formula-action@v3
+        with:
+          formula-name: ${{env.FORMULA_NAME}}
+          formula-path: Formula/${{env.FORMULA_NAME}}.rb
+          download-url: ${{ env.FORMULA_URL }}
+          homebrew-tap: ${{env.OWNER}}/${{env.REPO}}
+          tag-name: ${{env.FORMULA_VERSION}}
+          base-branch: main
+          commit-message: ${{env.FORMULA_NAME}} ${{env.FORMULA_VERSION}}
+        env:
+          COMMITTER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORMULA_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_version || inputs.formula_version}}
+          FORMULA_NAME: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_name || inputs.formula_name}}
+          FORMULA_URL: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_url || inputs.formula_url}}
