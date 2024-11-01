@@ -53,4 +53,4 @@ jobs:
           homebrew-tap: ${{ env.FORMULA_HOMEBREW_TAP }}
           tag-name: v${{ env.FORMULA_NEW_VERSION }}
           base-branch: master
-          commit-message: ${{ env.FORMULA_NAME }} ${{ env.FORMULA_NEW_VERSION }}
+          commit-message: Updated formula to version ${{ env.FORMULA_NEW_VERSION }}
