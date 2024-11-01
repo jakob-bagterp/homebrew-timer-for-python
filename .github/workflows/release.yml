@@ -1,0 +1,79 @@
+name: Bump Homebrew formula
+
+on:
+  repository_dispatch:
+    types: [update-formula]
+  workflow_dispatch:
+    inputs:
+      formula_previous_version:
+        description: "Previous version of the formula"
+        required: true
+        type: string
+      formula_new_version:
+        description: "New version of the formula"
+        required: true
+        type: string
+      formula_name:
+        description: "Name of the formula"
+        required: true
+        type: string
+      formula_url:
+        description: "URL of the formula"
+        required: true
+        type: string
+      formula_homebrew_tap:
+        description: "Homebrew tap"
+        required: true
+        type: string
+
+env:
+  COMMITTER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  FORMULA_PREVIOUS_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_previous_version || inputs.formula_previous_version }}
+  FORMULA_NEW_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_new_version || inputs.formula_new_version }}
+  FORMULA_NAME: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_name || inputs.formula_name }}
+  FORMULA_URL: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_url || inputs.formula_url }}
+  FORMULA_HOMEBREW_TAP: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_homebrew_tap || inputs.formula_homebrew_tap }}
+
+jobs:
+  bump-homebrew-formula:
+    name: Bump Homebrew formula
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+
+      - name: Update Homebrew formula
+        uses: mislav/bump-homebrew-formula-action@v3
+        with:
+          formula-name: ${{ env.FORMULA_NAME }}
+          formula-path: Formula/${{ env.FORMULA_NAME }}.rb
+          download-url: ${{ env.FORMULA_URL }}
+          homebrew-tap: ${{ env.FORMULA_HOMEBREW_TAP }}
+          tag-name: v${{ env.FORMULA_NEW_VERSION }}
+          base-branch: master
+          commit-message: Updated formula to version ${{ env.FORMULA_NEW_VERSION }}
+
+  update-version-badge:
+    name: Update version badge in README.md
+    runs-on: ubuntu-latest
+    needs: bump-homebrew-formula
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+
+      - name: Update version in README.md
+        run: |
+            sed -i "s/v=${{ env.FORMULA_PREVIOUS_VERSION }}/v=${{ env.FORMULA_NEW_VERSION }}/" README.md
+            
+      - name: Commit README.md update
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Update version badge to ${{ env.FORMULA_NEW_VERSION }}"
+          git push origin master
