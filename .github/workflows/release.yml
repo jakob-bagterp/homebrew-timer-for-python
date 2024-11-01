@@ -36,7 +36,7 @@ jobs:
           download-url: ${{ env.FORMULA_URL }}
           homebrew-tap: ${{ github.repository }}
           tag-name: ${{ env.FORMULA_VERSION }}
-          base-branch: main
+          base-branch: master
           commit-message: ${{ env.FORMULA_NAME }} ${{ env.FORMULA_VERSION }}
         env:
           COMMITTER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
