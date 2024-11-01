@@ -33,7 +33,7 @@ env:
   FORMULA_NAME: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_name || inputs.formula_name }}
   FORMULA_URL: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_url || inputs.formula_url }}
   FORMULA_HOMEBREW_TAP: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_homebrew_tap || inputs.formula_homebrew_tap }}
-      
+
 jobs:
   bump-homebrew-formula:
     name: Bump Homebrew formula
