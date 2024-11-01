@@ -23,7 +23,7 @@ env:
   REPO: homebrew-core
 
 jobs:
-  homebrew:
+  bump-homebrew-formula:
     name: Bump Homebrew formula
     runs-on: ubuntu-latest
     permissions:
