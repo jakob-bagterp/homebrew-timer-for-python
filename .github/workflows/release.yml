@@ -18,10 +18,6 @@ on:
         required: true
         type: string
 
-env:
-  OWNER: ArjanCodes
-  REPO: homebrew-core
-
 jobs:
   bump-homebrew-formula:
     name: Bump Homebrew formula
@@ -38,7 +34,7 @@ jobs:
           formula-name: ${{ env.FORMULA_NAME }}
           formula-path: Formula/${{ env.FORMULA_NAME }}.rb
           download-url: ${{ env.FORMULA_URL }}
-          homebrew-tap: ${{ env.OWNER }}/${{ env.REPO }}
+          homebrew-tap: ${{ github.repository }}
           tag-name: ${{ env.FORMULA_VERSION }}
           base-branch: main
           commit-message: ${{ env.FORMULA_NAME }} ${{ env.FORMULA_VERSION }}
