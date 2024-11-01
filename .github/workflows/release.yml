@@ -55,3 +55,25 @@ jobs:
           tag-name: v${{ env.FORMULA_NEW_VERSION }}
           base-branch: master
           commit-message: Updated formula to version ${{ env.FORMULA_NEW_VERSION }}
+
+  update-version-badge:
+    name: Update version badge in README.md
+    runs-on: ubuntu-latest
+    needs: bump-homebrew-formula
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+
+      - name: Update version in README.md
+        run: |
+            sed -i "s/v=${{ env.FORMULA_PREVIOUS_VERSION }}/v=${{ env.FORMULA_NEW_VERSION }}/" README.md
+            
+      - name: Commit README.md update
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add README.md
+          git commit -m "Update version badge to ${{ env.FORMULA_NEW_VERSION }}"
+          git push origin master
