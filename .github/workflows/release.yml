@@ -26,6 +26,14 @@ on:
         required: true
         type: string
 
+env:
+  COMMITTER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  FORMULA_PREVIOUS_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_previous_version || inputs.formula_previous_version }}
+  FORMULA_NEW_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_new_version || inputs.formula_new_version }}
+  FORMULA_NAME: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_name || inputs.formula_name }}
+  FORMULA_URL: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_url || inputs.formula_url }}
+  FORMULA_HOMEBREW_TAP: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_homebrew_tap || inputs.formula_homebrew_tap }}
+      
 jobs:
   bump-homebrew-formula:
     name: Bump Homebrew formula
@@ -39,13 +47,6 @@ jobs:
 
       - name: Update Homebrew formula
         uses: mislav/bump-homebrew-formula-action@v3
-        env:
-          COMMITTER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          FORMULA_PREVIOUS_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_previous_version || inputs.formula_previous_version }}
-          FORMULA_NEW_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_new_version || inputs.formula_new_version }}
-          FORMULA_NAME: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_name || inputs.formula_name }}
-          FORMULA_URL: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_url || inputs.formula_url }}
-          FORMULA_HOMEBREW_TAP: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_homebrew_tap || inputs.formula_homebrew_tap }}
         with:
           formula-name: ${{ env.FORMULA_NAME }}
           formula-path: Formula/${{ env.FORMULA_NAME }}.rb
