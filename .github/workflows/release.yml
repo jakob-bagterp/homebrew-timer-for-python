@@ -21,6 +21,10 @@ on:
         description: "URL of the formula"
         required: true
         type: string
+      formula_homebrew_tap:
+        description: "Homebrew tap"
+        required: true
+        type: string
 
 jobs:
   bump-homebrew-formula:
@@ -39,7 +43,7 @@ jobs:
           formula-name: ${{ env.FORMULA_NAME }}
           formula-path: Formula/${{ env.FORMULA_NAME }}.rb
           download-url: ${{ env.FORMULA_URL }}
-          homebrew-tap: ${{ github.repository }}
+          homebrew-tap: ${{ env.FORMULA_HOMEBREW_TAP }}
           tag-name: v${{ env.FORMULA_NEW_VERSION }}
           base-branch: master
           commit-message: ${{ env.FORMULA_NAME }} ${{ env.FORMULA_NEW_VERSION }}
@@ -49,3 +53,4 @@ jobs:
           FORMULA_NEW_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_new_version || inputs.formula_new_version }}
           FORMULA_NAME: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_name || inputs.formula_name }}
           FORMULA_URL: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_url || inputs.formula_url }}
+          FORMULA_HOMEBREW_TAP: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_homebrew_tap || inputs.formula_homebrew_tap }}
