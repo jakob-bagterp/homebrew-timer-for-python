@@ -69,7 +69,7 @@ jobs:
       - name: Update version in README.md
         run: |
           sed -i "s/v=${{ env.FORMULA_PREVIOUS_VERSION }}/v=${{ env.FORMULA_NEW_VERSION }}/" README.md
-            
+
       - name: Commit README.md update
         run: |
           git config user.name "GitHub Actions"
