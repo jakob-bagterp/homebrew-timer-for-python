@@ -38,7 +38,9 @@ jobs:
   bump-homebrew-formula:
     name: Bump Homebrew formula
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
       - name: Checkout source repository
         uses: actions/checkout@v4
