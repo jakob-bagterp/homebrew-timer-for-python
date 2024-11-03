@@ -54,14 +54,14 @@ jobs:
           create-pullrequest: true
           commit-message: Updated formula to version ${{ env.FORMULA_NEW_VERSION }}
 
-      - name: Try to enable auto-merge of pull request
+      - name: Try to enable auto-merge of pull request and delete branch
         env:
           GITHUB_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
         run: | # Ignore errors if pull request can't be merged
           sleep 2
           PULL_REQUEST_NUMBER=$(gh pr list --json number --jq '.[0].number' || echo "")
           if [ ! -z "$PULL_REQUEST_NUMBER" ]; then
-            gh pr merge $PULL_REQUEST_NUMBER --auto --merge || true
+            gh pr merge $PULL_REQUEST_NUMBER --auto --merge --delete-branch || true
           fi
 
   update-version-badge:
@@ -95,9 +95,12 @@ jobs:
           delete-branch: true
           token: ${{ secrets.COMMITTER_TOKEN }}
 
-      - name: Try to enable auto-merge of pull request
-        if: steps.update-version-badge-pull-request.outputs.pull-request-operation == 'created'
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ secrets.COMMITTER_TOKEN }}
-          pull-request-number: ${{ steps.update-version-badge-pull-request.outputs.pull-request-number }}
+      - name: Try to enable auto-merge of pull request and delete branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
+        run: | # Ignore errors if pull request can't be merged
+          sleep 2
+          PULL_REQUEST_NUMBER=$(gh pr list --json number --jq '.[0].number' || echo "")
+          if [ ! -z "$PULL_REQUEST_NUMBER" ]; then
+            gh pr merge $PULL_REQUEST_NUMBER --auto --merge --delete-branch || true
+          fi
