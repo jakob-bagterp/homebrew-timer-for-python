@@ -61,7 +61,7 @@ jobs:
           sleep 2
           PULL_REQUEST_NUMBER=$(gh pr list --json number --jq ".[0].number" || echo "")
           if [ -n "$PULL_REQUEST_NUMBER" ]; then
-            gh pr merge $PULL_REQUEST_NUMBER --auto --merge --delete-branch || true
+            gh pr merge "$PULL_REQUEST_NUMBER" --auto --merge --delete-branch || true
           fi
         # Ignore errors if pull request can't be merged. Then we just have to do it manually.
 
