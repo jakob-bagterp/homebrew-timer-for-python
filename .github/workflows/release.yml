@@ -57,13 +57,12 @@ jobs:
       - name: Try to enable auto-merge of pull request and delete branch
         env:
           GITHUB_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
-        run: |
+        run: | # Ignore errors if pull request can't be merged. Then we just have to do it manually.
           sleep 2
           PULL_REQUEST_NUMBER=$(gh pr list --json number --jq ".[0].number" || echo "")
           if [ -n "$PULL_REQUEST_NUMBER" ]; then
             gh pr merge "$PULL_REQUEST_NUMBER" --auto --merge --delete-branch || true
           fi
-        # Ignore errors if pull request can't be merged. Then we just have to do it manually.
 
   update-version-badge:
     name: Update version badge in README.md
@@ -99,10 +98,9 @@ jobs:
       - name: Try to enable auto-merge of pull request and delete branch
         env:
           GITHUB_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
-        run: |
+        run: | # Ignore errors if pull request can't be merged. Then we just have to do it manually.
           sleep 2
           PULL_REQUEST_NUMBER=$(gh pr list --json number --jq ".[0].number" || echo "")
           if [ -n "$PULL_REQUEST_NUMBER" ]; then
             gh pr merge "$PULL_REQUEST_NUMBER" --auto --merge --delete-branch || true
           fi
-        # Ignore errors if pull request can't be merged. Then we just have to do it manually.
