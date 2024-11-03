@@ -53,7 +53,7 @@ jobs:
           formula-name: ${{ env.FORMULA_NAME }}
           formula-path: Formula/${{ env.FORMULA_NAME }}.rb
           download-url: ${{ env.FORMULA_URL }}
-          homebrew-tap: ${{ env.FORMULA_HOMEBREW_TAP }}
+          homebrew-tap: ${{ github.repository }}
           tag-name: v${{ env.FORMULA_NEW_VERSION }}
           base-branch: master
           create-pullrequest: true
