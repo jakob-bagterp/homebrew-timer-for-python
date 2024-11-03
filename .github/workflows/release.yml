@@ -60,7 +60,7 @@ jobs:
         run: | # Ignore errors if pull request can't be merged
           sleep 2
           PULL_REQUEST_NUMBER=$(gh pr list --json number --jq '.[0].number' || echo "")
-          if [ ! -z "$PULL_REQUEST_NUMBER" ]; then
+          if [ -n "$PULL_REQUEST_NUMBER" ]; then
             gh pr merge $PULL_REQUEST_NUMBER --auto --merge --delete-branch || true
           fi
 
@@ -101,6 +101,6 @@ jobs:
         run: | # Ignore errors if pull request can't be merged
           sleep 2
           PULL_REQUEST_NUMBER=$(gh pr list --json number --jq '.[0].number' || echo "")
-          if [ ! -z "$PULL_REQUEST_NUMBER" ]; then
+          if [ -n "$PULL_REQUEST_NUMBER" ]; then
             gh pr merge $PULL_REQUEST_NUMBER --auto --merge --delete-branch || true
           fi
