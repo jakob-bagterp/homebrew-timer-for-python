@@ -59,7 +59,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
         run: |
           sleep 2
-          PULL_REQUEST_NUMBER=$(gh pr list --json number --jq '.[0].number' || echo "")
+          PULL_REQUEST_NUMBER=$(gh pr list --json number --jq ".[0].number" || echo "")
           if [ -n "$PULL_REQUEST_NUMBER" ]; then
             gh pr merge $PULL_REQUEST_NUMBER --auto --merge --delete-branch || true
           fi
@@ -101,7 +101,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
         run: |
           sleep 2
-          PULL_REQUEST_NUMBER=$(gh pr list --json number --jq '.[0].number' || echo "")
+          PULL_REQUEST_NUMBER=$(gh pr list --json number --jq ".[0].number" || echo "")
           if [ -n "$PULL_REQUEST_NUMBER" ]; then
             gh pr merge $PULL_REQUEST_NUMBER --auto --merge --delete-branch || true
           fi
