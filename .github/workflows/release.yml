@@ -27,7 +27,6 @@ on:
         type: string
 
 env:
-  COMMITTER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   FORMULA_PREVIOUS_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_previous_version || inputs.formula_previous_version }}
   FORMULA_NEW_VERSION: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_new_version || inputs.formula_new_version }}
   FORMULA_NAME: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.formula_name || inputs.formula_name }}
@@ -47,6 +46,9 @@ jobs:
 
       - name: Update Homebrew formula
         uses: mislav/bump-homebrew-formula-action@v3
+        env:
+          COMMITTER_TOKEN: ${{ secrets.COMMITTER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           formula-name: ${{ env.FORMULA_NAME }}
           formula-path: Formula/${{ env.FORMULA_NAME }}.rb
@@ -54,7 +56,11 @@ jobs:
           homebrew-tap: ${{ env.FORMULA_HOMEBREW_TAP }}
           tag-name: v${{ env.FORMULA_NEW_VERSION }}
           base-branch: master
-          commit-message: Updated formula to version ${{ env.FORMULA_NEW_VERSION }}
+          create-pullrequest: true
+          commit-message:
+            Updated formula to version ${{ env.FORMULA_NEW_VERSION }}
+
+            Updated by GitHub Actions workflow.
 
   update-version-badge:
     name: Update version badge in README.md
