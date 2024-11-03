@@ -52,10 +52,7 @@ jobs:
           tag-name: v${{ env.FORMULA_NEW_VERSION }}
           base-branch: master
           create-pullrequest: true
-          commit-message:
-            Updated formula to version ${{ env.FORMULA_NEW_VERSION }}
-
-            Updated by GitHub Actions workflow.
+          commit-message: Updated formula to version ${{ env.FORMULA_NEW_VERSION }}
 
   update-version-badge:
     name: Update version badge in README.md
