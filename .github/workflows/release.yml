@@ -76,5 +76,5 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add README.md
-          git commit -m "Update version badge to ${{ env.FORMULA_NEW_VERSION }}"
+          git commit -m "Update version badge to ${{ env.FORMULA_NEW_VERSION }}" --verbose
           git push origin HEAD:${{ github.ref_name }}
