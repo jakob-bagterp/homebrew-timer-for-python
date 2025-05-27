@@ -6,6 +6,9 @@ on:
       - master
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   brew-test-bot:
     name: Homebrew test bot
