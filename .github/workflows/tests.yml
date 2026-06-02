@@ -21,6 +21,10 @@ jobs:
       - name: Set up Homebrew
         id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@main
+
+      - name: Trust the Homebrew tap
+        run: brew trust ${{ github.repository }}
+
       - name: Cache Homebrew bundler RubyGems
         id: cache
         uses: actions/cache@v5
